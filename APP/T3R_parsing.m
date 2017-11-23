@@ -2,13 +2,13 @@
 
 
 fileID = fopen('PD01_20ns_000.out','r');
-A = fscanf(fileID,'%s');
+A = fscanf(fileID,'%s');  % most time comsuming step
 fclose(fileID);
 
 
 fl = 0;
 cnt = 1;
-num = zeros(1,3e6);
+num = zeros(1,3e6); % 3e6 = # of data (peak); store peak time in num
 tmp = 0;
 len = length(A);
 
@@ -27,7 +27,7 @@ for i = 1:len
 end
 
 % fileID = fopen('delta_t.txt','w');
-delta = zeros(1,3e6);
+delta = zeros(1,3e6); % store time difference between successive peaks in delta
 for i = 2:cnt-1
     delta(1,i-1) = num(1,i)-num(1,i-1);
 end
@@ -37,15 +37,15 @@ end
 interval = zeros(1,1005);
 for i = 1:cnt-2
 %     fprintf(fileID, '%.1f ps\n', delta(1,i));
-    th = floor(delta(1,i)/1000);
-    if th > 1000 
+    th = floor(delta(1,i)/1000);  % 1000 ps = 1 ns
+    if th > 1000  % remove time difference > 1000ns
         continue;
     end
     interval(1, th) = interval(1, th)+1;
 end
 % fclose(fileID);
 
-fileID = fopen('interval.txt','w');
+fileID = fopen('interval.txt','w'); 
 for i = 1:1000
     fprintf(fileID, '%d %d\n', i, interval(1,i));
 end
