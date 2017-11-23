@@ -31,8 +31,8 @@ delta = zeros(1,3e6);
 for i = 2:cnt-1
     delta(1,i-1) = num(1,i)-num(1,i-1);
 end
-delta = sort(delta, 'descend');
-dd = delta(1,1:cnt-2);
+% delta = sort(delta, 'descend');
+% dd = delta(1,1:cnt-2);
 
 interval = zeros(1,1005);
 for i = 1:cnt-2
